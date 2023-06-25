@@ -5,14 +5,18 @@ const Todo = () => {
   const [userInput, setUserInput] = useState("");
   const [todoList, setTodoList] = useState([]);
 
+  const handleOnChange = (event) => {
+    setUserInput(event.target.value);
+  };
+
   const addTask = () => {
     const newTodoList = [...todoList, userInput];
     setTodoList(newTodoList);
   };
 
-  const handleDeleteTask = () => {
+  const handleDeleteTask = (index) => {
     const newTodoList = [...todoList];
-    newTodoList.pop();
+    newTodoList.splice(index, 1);
     setTodoList(newTodoList);
   };
 
@@ -21,8 +25,8 @@ const Todo = () => {
       <InputField>
         <Input
           type="text"
-          onChange={(event) => setUserInput(event.target.value)}
-          placeholder="Add Task"
+          onChange={handleOnChange}
+          placeholder="Task Name"
           value={userInput}
         />
         <button
@@ -41,10 +45,13 @@ const Todo = () => {
       <TodoContainer>
         <TaskContainer>
           <ul>
-            {todoList.map((todo) => {
+            {todoList.map((todo, index) => {
               return (
-                <li>
-                  {todo} <button onClick={handleDeleteTask}>delete</button>
+                <li key={index}>
+                  {todo}
+                  <button onClick={() => handleDeleteTask(index)}>
+                    delete
+                  </button>
                 </li>
               );
             })}
@@ -63,6 +70,10 @@ const InputField = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  button {
+    background-color: #541025;
+    color: antiquewhite;
+  }
 `;
 
 const TodoContainer = styled.div`
@@ -74,7 +85,12 @@ const TodoContainer = styled.div`
   height: 70vh;
 `;
 
-const Input = styled.input``;
+const Input = styled.input`
+  border: none;
+  padding: 10px;
+  width: 50vw;
+  border-radius: 4px;
+`;
 
 const TaskContainer = styled.div`
   ul {
@@ -92,16 +108,16 @@ const TaskContainer = styled.div`
       background-color: #f8e042;
       margin-top: 1rem;
       width: 60vw;
-      height: 50px;
+      height: auto;
       font-size: 2rem;
       border-radius: 7px;
+      padding: 1rem 0 1rem 1rem;
       button {
         border: none;
         font-size: 1.25rem;
         border-radius: 4px;
         cursor: pointer;
         background-color: #c94e3b;
-        padding: 12px;
       }
     }
   }
