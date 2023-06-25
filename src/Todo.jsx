@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-key */
 import styled from "styled-components";
 import { useState } from "react";
-import { Fade } from "react-awesome-reveal";
+import { Slide } from "react-awesome-reveal";
 
 const Todo = () => {
   const [userInput, setUserInput] = useState("");
@@ -48,14 +49,14 @@ const Todo = () => {
           <ul>
             {todoList.map((todo, index) => {
               return (
-                <Fade bottom duration={1}>
+                <Slide direction="up" triggerOnce="true">
                   <li key={index}>
                     {todo}
                     <button onClick={() => handleDeleteTask(index)}>
                       delete
                     </button>
                   </li>
-                </Fade>
+                </Slide>
               );
             })}
           </ul>
