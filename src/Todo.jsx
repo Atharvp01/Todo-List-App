@@ -2,16 +2,23 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const Todo = () => {
-  const [userInput, setUserInput] = useState("Hello");
+  const [userInput, setUserInput] = useState("");
+  const [todoList, setTodoList] = useState([]);
 
-  const addTask = (event) => {
-    setUserInput(event.target.value);
+  const addTask = () => {
+    const newTodoList = [...todoList, userInput];
+    setTodoList(newTodoList);
   };
 
   return (
     <>
       <InputField>
-        <input type="text" onChange={addTask} />
+        <Input
+          type="text"
+          onChange={(event) => setUserInput(event.target.value)}
+          placeholder="Add Task"
+          value={userInput}
+        />
         <button
           style={{
             marginTop: "1rem",
@@ -20,11 +27,14 @@ const Todo = () => {
             border: "none",
             cursor: "pointer",
           }}
+          onClick={addTask}
         >
           Add Task
         </button>
       </InputField>
-      <TaskContainer>{userInput}</TaskContainer>
+      <TodoContainer>
+        <TaskContainer>{todoList}</TaskContainer>
+      </TodoContainer>
     </>
   );
 };
@@ -39,12 +49,19 @@ const InputField = styled.div`
   justify-content: center;
 `;
 
-const TaskContainer = styled.div`
+const TodoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 1.5rem;
+  width: 100vw;
+  height: 70vh;
+`;
+
+const Input = styled.input``;
+
+const TaskContainer = styled.div`
+  background-color: #f8e042;
 `;
 
 export default Todo;
