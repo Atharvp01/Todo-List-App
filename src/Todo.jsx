@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import Fade from "react-reveal/Fade";
 
 const Todo = () => {
   const [userInput, setUserInput] = useState("");
@@ -47,12 +48,14 @@ const Todo = () => {
           <ul>
             {todoList.map((todo, index) => {
               return (
-                <li key={index}>
-                  {todo}
-                  <button onClick={() => handleDeleteTask(index)}>
-                    delete
-                  </button>
-                </li>
+                <Fade bottom>
+                  <li key={index}>
+                    {todo}
+                    <button onClick={() => handleDeleteTask(index)}>
+                      delete
+                    </button>
+                  </li>
+                </Fade>
               );
             })}
           </ul>
@@ -80,7 +83,7 @@ const TodoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100vw;
   height: 70vh;
 `;
