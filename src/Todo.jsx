@@ -12,13 +12,20 @@ const Todo = () => {
   };
 
   const addTask = () => {
-    const newTodoList = [...todoList, userInput];
+    const newTask = { name: userInput, complete: false };
+    const newTodoList = [...todoList, newTask];
     setTodoList(newTodoList);
   };
 
   const handleDeleteTask = (index) => {
     const newTodoList = [...todoList];
     newTodoList.splice(index, 1);
+    setTodoList(newTodoList);
+  };
+
+  const isTaskComplete = (index) => {
+    const newTodoList = [...todoList];
+    newTodoList[index].complete = !newTodoList[index].complete;
     setTodoList(newTodoList);
   };
 
@@ -50,11 +57,22 @@ const Todo = () => {
             {todoList.map((todo, index) => {
               return (
                 <Slide direction="up" triggerOnce="true">
-                  <li key={index}>
-                    {todo}
-                    <button onClick={() => handleDeleteTask(index)}>
-                      delete
-                    </button>
+                  <li
+                    key={index}
+                    style={{
+                      backgroundColor: todo.complete ? "green" : "#f8e042",
+                      color: "white",
+                    }}
+                  >
+                    {todo.name}
+                    <div>
+                      <button onClick={() => isTaskComplete(index)}>
+                        Complete
+                      </button>
+                      <button onClick={() => handleDeleteTask(index)}>
+                        Delete
+                      </button>
+                    </div>
                   </li>
                 </Slide>
               );
