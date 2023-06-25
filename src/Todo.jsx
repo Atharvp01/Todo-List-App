@@ -10,6 +10,12 @@ const Todo = () => {
     setTodoList(newTodoList);
   };
 
+  const handleDeleteTask = () => {
+    const newTodoList = [...todoList];
+    newTodoList.pop();
+    setTodoList(newTodoList);
+  };
+
   return (
     <>
       <InputField>
@@ -33,7 +39,17 @@ const Todo = () => {
         </button>
       </InputField>
       <TodoContainer>
-        <TaskContainer>{todoList}</TaskContainer>
+        <TaskContainer>
+          <ul>
+            {todoList.map((todo) => {
+              return (
+                <li>
+                  {todo} <button onClick={handleDeleteTask}>delete</button>
+                </li>
+              );
+            })}
+          </ul>
+        </TaskContainer>
       </TodoContainer>
     </>
   );
@@ -61,7 +77,34 @@ const TodoContainer = styled.div`
 const Input = styled.input``;
 
 const TaskContainer = styled.div`
-  background-color: #f8e042;
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 1rem;
+      color: #552d2c;
+      background-color: #f8e042;
+      margin-top: 1rem;
+      width: 60vw;
+      height: 50px;
+      font-size: 2rem;
+      border-radius: 7px;
+      button {
+        border: none;
+        font-size: 1.25rem;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #c94e3b;
+        padding: 12px;
+      }
+    }
+  }
 `;
 
 export default Todo;
